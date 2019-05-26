@@ -1,7 +1,9 @@
 var jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
-const { document } = (new JSDOM('')).window;
+const { document } = (new JSDOM('', {
+  url: 'http://localhost',
+})).window;
 global.document = document;
 
 global.window = document.defaultView;
