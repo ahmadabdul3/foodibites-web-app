@@ -318,8 +318,8 @@ class FormColumnTitle extends PureComponent {
 
 function sanitizeIngredient(ingredient) {
   let sanitized = ingredient.trim();
-  const lastIndex = ingredient.length - 1;
-  if (ingredient[lastIndex] === '.') sanitized = sanitized.slice(0, -1);
+  const lastIndex = sanitized.length - 1;
+  if (sanitized[lastIndex] === '.') sanitized = sanitized.slice(0, -1);
   return sanitized;
 }
 
