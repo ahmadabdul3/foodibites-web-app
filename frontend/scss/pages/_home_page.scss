@@ -199,6 +199,48 @@
   margin-top: 50px;
 }
 
+.products-component-container {
+  margin: 0 auto;
+}
+
+.products-component {
+  margin: 20px 5px 20px 5px;
+  padding: 5px 5px 5px 5px;
+
+  display: inline-block;
+
+  //background-color: #325774;
+  //below is site color, i prefer the above though
+  background-color: #363f46;
+
+  border: 1px solid white;
+}
+
+.products-component-name {
+  margin-bottom: 2px;
+
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+
+  clear: both;
+}
+
+.products-component-brand {
+  margin-top: 2px;
+
+  font-size: 16px;
+  font-weight: lighter;
+  color: white;
+
+  clear: both;
+}
+
+.products-component-seperator {
+  height: 1px;
+  background-color: white;
+}
+
 // .form-input-row {
 //   display: flex;
 //   justify-content: space-between;

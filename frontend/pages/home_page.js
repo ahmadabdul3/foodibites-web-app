@@ -34,18 +34,19 @@ export default class HomePage extends Component {
     if(!products) { return (<div> No products </div>); }
     const dataArray = products.map((datum, i) => {
       return (
-        <div key={ i } class='products-component'>
-          <div class='products-component-name'>
+        <div key={ i } className='products-component'>
+          <div className='products-component-name'>
             { datum.name }
           </div>
-          <div class='products-component-brand'>
-            { datum.brand }
+          <div className='products-component-seperator'></div>
+          <div className='products-component-brand'>
+            <i style={{fontStyle: 'italic'}}> by:&nbsp; </i> { datum.brand }
           </div>
         </div>
       );
     });
     return(
-      <div>
+      <div className='products-component-container'>
         { dataArray }
       </div>
     );
