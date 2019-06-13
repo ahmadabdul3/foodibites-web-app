@@ -9,8 +9,8 @@
     "heroku-postbuild": "webpack",
     "test": "mocha-webpack \"./frontend/test/**/*.test.js\" --webpack-config webpack-test.config.js --require ./frontend/test/setup.js",
     "test-watch": "mocha-webpack --watch \"./frontend/test/**/*.test.js\" --webpack-config webpack-test.config.js --require ./frontend/test/setup.js",
-    "createDB": "sequelize db:create",
-    "migrateDB": "sequelize db:migrate"
+    "create-db": "sequelize db:create",
+    "migrate-db": "sequelize db:migrate"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
