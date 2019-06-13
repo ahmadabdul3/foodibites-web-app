@@ -16,29 +16,44 @@ export default class HomePage extends Component {
   }
 
   fetchProducts = () => {
-    http.get('/product').then(
-      data => {
+    http.get('/product').then(res => {
         this.setState({
-          products: data.products
+          products: res.products
         })
-      }
-    ).catch(
-      e => {
+    }).catch(e => {
         console.log('error', e);
-      }
-    );
+    });
   }
 
   componentDidMount() {
     this.fetchProducts();
   }
 
+  renderProducts = () => {
+    const { products } = this.state;
+    if(!products) { return (<div> No products </div>); }
+    const dataArray = products.map((datum, i) => {
+      return (
+        <div key={ i } class='products-component'>
+          <div class='products-component-name'>
+            { datum.name }
+          </div>
+          <div class='products-component-brand'>
+            { datum.brand }
+          </div>
+        </div>
+      );
+    });
+    return(
+      <div>
+        { dataArray }
+      </div>
+    );
+  }
+
   render() {
     const { error, redirectTo } = this.state;
-    const { products } = this.state;
-    console.log('products', products);
     if (redirectTo) return <Redirect push to={redirectTo} />;
-    if(!products) {
       return (
         <div className='home-page'>
           <header className='home-page__header'>
@@ -48,28 +63,9 @@ export default class HomePage extends Component {
               </button>
             </div>
           </header>
-          <div>
-              No products...
-          </div>
+          { this.renderProducts() }
         </div>
       );
-    } else {
-
-      let dataArray = [];
-      products.map((datum, i) => {
-        //return <div key={i}>{ datum.name }</div>
-        console.log('datum', datum);
-        console.log('i', i);
-        console.log('datum.name', datum.name);
-        console.log('');
-        dataArray.push(datum.name);
-      });
-      console.log(typeof(dataArray));
-      console.log(dataArray);
-      return (
-        <div>hello</div>
-      );
-    }
   }
 }
 

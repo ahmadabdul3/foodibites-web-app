@@ -6,7 +6,6 @@ const productModel = models.product;
 const router = express.Router();
 
 router.post('/', createProduct);
-
 router.get('/', getProducts);
 
 export default router;
@@ -25,14 +24,9 @@ async function createProduct(req, res) {
 async function getProducts(req, res) {
   try {
     const products = await productModel.findAll();
-    console.log("productModel {\n");
-    console.log(productModel);
-    console.log("\n}");
-    res.json({products, message: "success"});
-    return;
+    res.json({ products, message: 'sucess' });
   } catch (e) {
     console.log('error', e);
     res.status(422).json({message: 'Failed to fetch data from database', e});
-    return;
   }
 }
