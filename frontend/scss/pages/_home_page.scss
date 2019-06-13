@@ -205,13 +205,15 @@
 }
 
 .products-summary {
-  margin: 20px 5px;
+  margin: 5px 5px;
   padding: 30px;
   display: inline-block;
   background-color: $site-dark-blue;
   border: 1px solid white;
   border-radius: 4px;
   transition: background 0.15s ease;
+  width: 300px;
+  vertical-align: top;
 
   &:hover {
     background-color: darken($site-dark-blue, 5%);
