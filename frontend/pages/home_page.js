@@ -17,11 +17,9 @@ export default class HomePage extends Component {
 
   fetchProducts = () => {
     http.get('/product').then(res => {
-        this.setState({
-          products: res.products
-        })
+      this.setState({ products: res.products });
     }).catch(e => {
-        console.log('error', e);
+      console.log('error', e);
     });
   }
 
@@ -31,23 +29,22 @@ export default class HomePage extends Component {
 
   renderProducts = () => {
     const { products } = this.state;
-    if(!products) { return (<div> No products </div>); }
-    const dataArray = products.map((datum, i) => {
+    if(!products) return <div> No products </div>;
+    const productsMarkup = products.map((datum, i) => {
       return (
-        <div key={ i } className='products-component'>
-          <div className='products-component-name'>
+        <div key={ i } className='products-summary'>
+          <div className='products-summary__name'>
             { datum.name }
           </div>
-          <div className='products-component-seperator'></div>
-          <div className='products-component-brand'>
-            <i style={{fontStyle: 'italic'}}> by:&nbsp; </i> { datum.brand }
+          <div className='products-summary__brand'>
+            <i className='products-summary__brand-by'> by </i> { datum.brand }
           </div>
         </div>
       );
     });
-    return(
-      <div className='products-component-container'>
-        { dataArray }
+    return (
+      <div className='products-summary__container'>
+        { productsMarkup }
       </div>
     );
   }
@@ -55,18 +52,18 @@ export default class HomePage extends Component {
   render() {
     const { error, redirectTo } = this.state;
     if (redirectTo) return <Redirect push to={redirectTo} />;
-      return (
-        <div className='home-page'>
-          <header className='home-page__header'>
-            <div className='content'>
-              <button className='green-button' onClick={this.goToProductNewPage}>
-                <i className='fas fa-plus' /> New Product
-              </button>
-            </div>
-          </header>
-          { this.renderProducts() }
-        </div>
-      );
+    return (
+      <div className='home-page'>
+        <header className='home-page__header'>
+          <div className='content'>
+            <button className='green-button' onClick={this.goToProductNewPage}>
+              <i className='fas fa-plus' /> New Product
+            </button>
+          </div>
+        </header>
+        { this.renderProducts() }
+      </div>
+    );
   }
 }
 

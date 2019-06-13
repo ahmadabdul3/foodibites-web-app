@@ -27,6 +27,6 @@ async function getProducts(req, res) {
     res.json({ products, message: 'sucess' });
   } catch (e) {
     console.log('error', e);
-    res.status(422).json({message: 'Failed to fetch data from database', e});
+    res.status(422).json({ message: 'Failed to fetch data from database', e });
   }
 }

@@ -199,46 +199,50 @@
   margin-top: 50px;
 }
 
-.products-component-container {
+.products-summary__container {
   margin: 0 auto;
+  text-align: center;
 }
 
-.products-component {
-  margin: 20px 5px 20px 5px;
-  padding: 5px 5px 5px 5px;
-
+.products-summary {
+  margin: 20px 5px;
+  padding: 30px;
   display: inline-block;
-
-  //background-color: #325774;
-  //below is site color, i prefer the above though
-  background-color: #363f46;
-
+  background-color: $site-dark-blue;
   border: 1px solid white;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background-color: darken($site-dark-blue, 5%);
+    cursor: default;
+    transition: background 0.15s ease;
+  }
 }
 
-.products-component-name {
-  margin-bottom: 2px;
-
+%products-summary__text {
   font-size: 16px;
+  color: white;
+  text-align: left;
+}
+
+.products-summary__name,
+.products-summary__brand {
+  @extend %products-summary__text;
+}
+
+.products-summary__name {
   font-weight: bold;
-  color: white;
-
-  clear: both;
 }
 
-.products-component-brand {
-  margin-top: 2px;
-
-  font-size: 16px;
+.products-summary__brand {
+  margin-top: 5px;
   font-weight: lighter;
-  color: white;
-
-  clear: both;
 }
 
-.products-component-seperator {
-  height: 1px;
-  background-color: white;
+.products-summary__brand-by {
+  font-style: italic;
+  margin-right: 3px;
 }
 
 // .form-input-row {
