@@ -4,10 +4,10 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn(
       'products',
-      'completed',
-      Sequelize.BOOLEAN,
+      'dataInputStatus',
+      Sequelize.TEXT,
       {
-        defaultValue: false
+        defaultValue: 'incomplete'
       }
     );
   },
@@ -15,7 +15,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn(
       'products',
-      'completed'
+      'dataInputComplete'
     );
   }
 };
