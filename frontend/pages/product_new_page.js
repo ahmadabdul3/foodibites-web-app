@@ -3,6 +3,7 @@ import FormInput from 'src/frontend/components/form_input';
 import http from 'src/frontend/services/http';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
+import { identifier } from 'babel-types';
 
 function getProductModel({ values = {} }) {
   return {
@@ -36,6 +37,7 @@ export default class AddProductForm extends PureComponent {
     ingredient: '',
     ...getProductModel({}),
     ingredients: {},
+    completed: false,
     redirectTo: '',
   };
 
@@ -88,14 +90,33 @@ export default class AddProductForm extends PureComponent {
     });
   }
 
+  updateCompletedStatus = () => {
+    if(this.state.completed == false) {
+      this.setState({ completed: true });
+    } else {
+      this.setState({ completed: false });
+    }
+  }
+
   render() {
     const { error, redirectTo } = this.state;
     if (redirectTo) return <Redirect push to={redirectTo} />;
-    // console.log(this.state);
+    console.log("this.state.completed: ", this.state.completed);
     return (
       <div className='product-new-page'>
         <header>
           <div className='content'>
+            <div className='product-status'>
+              <label className='product-status__label'>
+                Product Completed:
+              </label>
+              <input
+                name='completed'
+                type='checkbox'
+                checked={ this.state.completed }
+                onChange={ this.updateCompletedStatus }
+              />
+            </div>
             <button className='button' onClick={this.cancelAdd}>
               Cancel
             </button>
