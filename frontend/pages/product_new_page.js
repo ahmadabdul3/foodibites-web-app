@@ -37,7 +37,7 @@ export default class AddProductForm extends PureComponent {
     ingredient: '',
     ...getProductModel({}),
     ingredients: {},
-    completed: false,
+    dataInputStatus: 'incomplete',
     redirectTo: '',
   };
 
@@ -106,17 +106,6 @@ export default class AddProductForm extends PureComponent {
       <div className='product-new-page'>
         <header>
           <div className='content'>
-            <div className='product-status'>
-              <label className='product-status__label'>
-                Product Completed:
-              </label>
-              <input
-                name='completed'
-                type='checkbox'
-                checked={ this.state.completed }
-                onChange={ this.updateCompletedStatus }
-              />
-            </div>
             <button className='button' onClick={this.cancelAdd}>
               Cancel
             </button>
@@ -293,6 +282,16 @@ export default class AddProductForm extends PureComponent {
                     labelText='Iron'
                     name='iron'
                     value={this.state.iron}
+                    onChange={this.onChange}
+                  />
+                </FormColumn>
+              </FormColumnContainer>
+              <FormColumnContainer>
+                <FormColumn title='Status'>
+                  <FormInput
+                    labelText='Status...'
+                    name='dataInputStatus'
+                    value={this.state.dataInputStatus}
                     onChange={this.onChange}
                   />
                 </FormColumn>
