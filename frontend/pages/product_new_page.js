@@ -90,18 +90,9 @@ export default class AddProductForm extends PureComponent {
     });
   }
 
-  updateCompletedStatus = () => {
-    if(this.state.completed == false) {
-      this.setState({ completed: true });
-    } else {
-      this.setState({ completed: false });
-    }
-  }
-
   render() {
     const { error, redirectTo } = this.state;
     if (redirectTo) return <Redirect push to={redirectTo} />;
-    console.log("this.state.completed: ", this.state.completed);
     return (
       <div className='product-new-page'>
         <header>

@@ -6,16 +6,14 @@ module.exports = {
       'products',
       'dataInputStatus',
       Sequelize.TEXT,
-      {
-        defaultValue: 'incomplete'
-      }
+      { defaultValue: 'incomplete' },
     );
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.removeColumn(
       'products',
-      'dataInputComplete'
+      'dataInputStatus'
     );
   }
 };
