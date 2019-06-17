@@ -3,7 +3,6 @@ import FormInput from 'src/frontend/components/form_input';
 import http from 'src/frontend/services/http';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
-import { identifier } from 'babel-types';
 
 function getProductModel({ values = {} }) {
   return {
