@@ -229,7 +229,8 @@
 }
 
 .products-summary__name,
-.products-summary__brand {
+.products-summary__brand,
+.products-summary__data-input-status {
   @extend %products-summary__text;
 }
 
@@ -242,7 +243,17 @@
   font-weight: lighter;
 }
 
-.products-summary__brand-by {
+.data-input-status {
+  width: 150px;
+  float: left;
+}
+
+.products-summary__data-input-status {
+  margin-top: 5px;
+  font-weight: lighter;
+}
+
+.italic {
   font-style: italic;
   margin-right: 3px;
 }
