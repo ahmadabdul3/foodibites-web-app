@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
 import http from 'src/frontend/services/http';
 import FormInput from 'src/frontend/components/form_input';
+import ProductMarkup from 'src/frontend/components/product_markup';
 
 export default class HomePage extends Component {
   state = {
@@ -29,39 +30,33 @@ export default class HomePage extends Component {
     this.fetchProducts();
   }
 
+  stringIncludes = (string, include) => {
+    return string.toLowerCase().includes(include.toLowerCase());
+  }
+
   renderProducts = () => {
-    const { products } = this.state;
-    if(!products) return <div> No products </div>;
+    const { products, dataInputStatusFilterString } = this.state;
+    if (!products) return <div> No products </div>;
     const productsMarkup = products.map((datum, i) => {
-      if(this.state.dataInputStatusFilterString.length > 0) {
-        if(datum.dataInputStatus.toLowerCase().includes(this.state.dataInputStatusFilterString.toLowerCase())) {
+      if (dataInputStatusFilterString) {
+        if (this.stringIncludes(datum.dataInputStatus, dataInputStatusFilterString)) {
           return (
-            <div key={ i } className='products-summary'>
-              <div className='products-summary__name'>
-                { datum.name }
-              </div>
-              <div className='products-summary__brand'>
-                <i className='products-summary__brand-by italic'> by </i> { datum.brand }
-              </div>
-              <div className='products-summary__data-input-status'>
-                <i className='italic'> Status </i> { datum.dataInputStatus }
-              </div>
-            </div>
+            <ProductMarkup
+              productName={datum.name}
+              productBrand={datum.brand}
+              productStatus={datum.dataInputStatus}
+              key={i}
+            />
           );
         }
       } else {
         return (
-          <div key={ i } className='products-summary'>
-            <div className='products-summary__name'>
-              { datum.name }
-            </div>
-            <div className='products-summary__brand'>
-              <i className='products-summary__brand-by italic'> by </i> { datum.brand }
-            </div>
-            <div className='products-summary__data-input-status'>
-              <i className='italic'> Status </i> { datum.dataInputStatus }
-            </div>
-        </div>
+          <ProductMarkup
+            productName={datum.name}
+            productBrand={datum.brand}
+            productStatus={datum.dataInputStatus}
+            key={i}
+          />
         );
       }
     });
@@ -72,7 +67,7 @@ export default class HomePage extends Component {
     );
   }
 
-  onChange = ({name, value}) => {
+  onChange = ({ name, value }) => {
     this.setState({ [name]: value })
   }
 
