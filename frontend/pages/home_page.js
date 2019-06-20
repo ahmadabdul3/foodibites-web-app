@@ -3,7 +3,7 @@ import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
 import http from 'src/frontend/services/http';
 import FormInput from 'src/frontend/components/form_input';
-import ProductMarkup from 'src/frontend/components/product_markup';
+import ProductSummary from 'src/frontend/components/product_summary';
 
 export default class HomePage extends Component {
   state = {
@@ -41,14 +41,12 @@ export default class HomePage extends Component {
       if (dataInputStatusFilterString && !this.stringIncludes(datum.dataInputStatus, dataInputStatusFilterString)) return;
 
       return (
-        <ProductMarkup
-          productName={datum.name}
-          productBrand={datum.brand}
-          productStatus={datum.dataInputStatus}
+        <ProductSummary
+          product={datum}
           key={i}
         />
       );
-      
+
     });
     return (
       <div className='products-summary__container'>
