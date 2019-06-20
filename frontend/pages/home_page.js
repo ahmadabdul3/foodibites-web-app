@@ -38,27 +38,17 @@ export default class HomePage extends Component {
     const { products, dataInputStatusFilterString } = this.state;
     if (!products) return <div> No products </div>;
     const productsMarkup = products.map((datum, i) => {
-      if (dataInputStatusFilterString) {
-        if (this.stringIncludes(datum.dataInputStatus, dataInputStatusFilterString)) {
-          return (
-            <ProductMarkup
-              productName={datum.name}
-              productBrand={datum.brand}
-              productStatus={datum.dataInputStatus}
-              key={i}
-            />
-          );
-        }
-      } else {
-        return (
-          <ProductMarkup
-            productName={datum.name}
-            productBrand={datum.brand}
-            productStatus={datum.dataInputStatus}
-            key={i}
-          />
-        );
-      }
+      if (dataInputStatusFilterString && !this.stringIncludes(datum.dataInputStatus, dataInputStatusFilterString)) return;
+
+      return (
+        <ProductMarkup
+          productName={datum.name}
+          productBrand={datum.brand}
+          productStatus={datum.dataInputStatus}
+          key={i}
+        />
+      );
+      
     });
     return (
       <div className='products-summary__container'>
