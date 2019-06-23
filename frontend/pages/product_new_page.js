@@ -81,7 +81,7 @@ export default class AddProductForm extends PureComponent {
 
   addProduct = (e) => {
     // e.preventDefault();
-    if(this.state.dataInputStatus == '') this.state.dataInputStatus = 'incomplete';
+    if (!this.state.dataInputStatus) this.setState({ dataInputStatus: 'incomplete' });
     const ingredients = Object.keys(this.state.ingredients).map(k => {
       return this.state.ingredients[k];
     });
