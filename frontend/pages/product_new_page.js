@@ -1,8 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import FormInput from 'src/frontend/components/form_input';
+import FormSelect from 'src/frontend/components/form_select';
 import http from 'src/frontend/services/http';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
+import { productStatusComplete, productStatusIncomplete, productStatusPendingReview } from 'src/constants/product_status';
 
 function getProductModel({ values = {} }) {
   return {
@@ -36,6 +38,8 @@ export default class AddProductForm extends PureComponent {
     ingredient: '',
     ...getProductModel({}),
     ingredients: {},
+    dataInputStatus: productStatusIncomplete.value,
+    productComments: '',
     redirectTo: '',
   };
 
@@ -77,6 +81,7 @@ export default class AddProductForm extends PureComponent {
 
   addProduct = (e) => {
     // e.preventDefault();
+    if (!this.state.dataInputStatus) this.setState({ dataInputStatus: 'incomplete' });
     const ingredients = Object.keys(this.state.ingredients).map(k => {
       return this.state.ingredients[k];
     });
@@ -91,7 +96,6 @@ export default class AddProductForm extends PureComponent {
   render() {
     const { error, redirectTo } = this.state;
     if (redirectTo) return <Redirect push to={redirectTo} />;
-    // console.log(this.state);
     return (
       <div className='product-new-page'>
         <header>
@@ -108,6 +112,21 @@ export default class AddProductForm extends PureComponent {
           <h2 className='page-title'>
             Add a new product
           </h2>
+          <div className='dropdown-data-input-status'>
+            <FormSelect
+              options={[
+                { value: productStatusIncomplete.valuel, label: productStatusIncomplete.value },
+                { value: productStatusComplete.value, label: productStatusComplete.value },
+                { value: productStatusPendingReview.value, label: productStatusPendingReview.value },
+              ]}
+              onChange={this.onChange}
+              state={{active: true}}
+              value={this.state.dataInputStatus}
+              name='dataInputStatus'
+              labelText='Status'
+              focused={true}
+            />
+          </div>
           <div className='add-product-form'>
             <div className='add-product-form__row'>
               <div className='add-product-form__base-info'>
@@ -272,6 +291,16 @@ export default class AddProductForm extends PureComponent {
                     labelText='Iron'
                     name='iron'
                     value={this.state.iron}
+                    onChange={this.onChange}
+                  />
+                </FormColumn>
+              </FormColumnContainer>
+              <FormColumnContainer>
+                <FormColumn title='Status'>
+                  <FormInput
+                    labelText='Comments...'
+                    name='productComments'
+                    value={this.state.productComments}
                     onChange={this.onChange}
                   />
                 </FormColumn>

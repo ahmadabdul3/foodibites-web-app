@@ -23,7 +23,8 @@ export default function Product(sequelize, DataTypes) {
     vitaminA: DataTypes.TEXT,
     vitaminC: DataTypes.TEXT,
     calcium: DataTypes.TEXT,
-    iron: DataTypes.TEXT
+    iron: DataTypes.TEXT,
+    dataInputStatus: DataTypes.TEXT
   }, {});
 
   productModel.associate = function(models) {

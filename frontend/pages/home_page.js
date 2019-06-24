@@ -2,6 +2,10 @@ import React, { Component, PureComponent } from 'react';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
 import http from 'src/frontend/services/http';
+import FormInput from 'src/frontend/components/form_input';
+import ProductSummary from 'src/frontend/components/product_summary';
+import { throwStatement } from 'babel-types';
+import { productStatusComplete, productStatusIncomplete, productStatusPendingReview } from 'src/constants/product_status';
 
 export default class HomePage extends Component {
   state = {
@@ -9,6 +13,10 @@ export default class HomePage extends Component {
     error: '',
     redirectTo: '',
     products: '',
+    brandFilterString: '',
+    complete: '',
+    incomplete: '',
+    pendingReview: '',
   }
 
   goToProductNewPage = () => {
@@ -27,26 +35,88 @@ export default class HomePage extends Component {
     this.fetchProducts();
   }
 
+  productStatusIncludesFilter = (string) => {
+    const { complete, incomplete, pendingReview } = this.state;
+    string = string.toLowerCase();
+    let ret = false;
+    let filtExists = false;
+    if (this.state.complete) {
+      ret |= string === complete.toLowerCase();
+      filtExists = true;
+    }
+    if (this.state.incomplete) {
+      ret |= string === incomplete.toLowerCase();
+      filtExists = true;
+    }
+    if (this.state.pendingReview) {
+      ret |= string === pendingReview.toLowerCase();
+      filtExists = true;
+    }
+    if (!filtExists) {
+      return true;
+    }
+    return ret;
+  }
+
+  productBrandIncludesFilter = (string) => {
+    const { brandFilterString } = this.state;
+    return string.toLowerCase().includes(brandFilterString.toLowerCase());
+  }
+
   renderProducts = () => {
-    const { products } = this.state;
-    if(!products) return <div> No products </div>;
+    const { products, brandFilterString } = this.state;
+    if (!products) return <div> No products </div>;
     const productsMarkup = products.map((datum, i) => {
+      if (!this.productStatusIncludesFilter(datum.dataInputStatus)) return;
+      if (brandFilterString && !this.productBrandIncludesFilter(datum.brand)) return;
       return (
-        <div key={ i } className='products-summary'>
-          <div className='products-summary__name'>
-            { datum.name }
-          </div>
-          <div className='products-summary__brand'>
-            <i className='products-summary__brand-by'> by </i> { datum.brand }
-          </div>
-        </div>
+        <ProductSummary
+          product={datum}
+          key={i}
+        />
       );
+
     });
     return (
       <div className='products-summary__container'>
         { productsMarkup }
       </div>
     );
+  }
+
+  onChange = ({ name, value }) => {
+    this.setState({ [name]: value })
+  }
+
+  checkBoxOnChangeComplete = ({ name, value }) => {
+    // console.log('checkbox');
+    // console.log('name & value', name, value)
+    // if(this.state[name]) {
+    //   this.setState({ [name]: '' });
+    // } else {
+    //   this.setState({ [name]: value });
+    // }
+    if(this.state.complete) {
+      this.setState({ complete: '' });
+    } else {
+      this.setState({ complete: 'complete' });
+    }
+  }
+
+  checkBoxOnChangeIncomplete = ({ name, value }) => {
+    if(this.state.incomplete) {
+      this.setState({ incomplete: '' });
+    } else {
+      this.setState({ incomplete: 'incomplete' });
+    }
+  }
+
+  checkBoxOnChangePendingReview = ({ name, value }) => {
+    if(this.state.pendingReview) {
+      this.setState({ pendingReview: '' });
+    } else {
+      this.setState({ pendingReview: 'pending-review' });
+    }
   }
 
   render() {
@@ -56,9 +126,41 @@ export default class HomePage extends Component {
       <div className='home-page'>
         <header className='home-page__header'>
           <div className='content'>
+            <div className='data-input-status'>
+              <FormInput
+                labelText='Search...'
+                name='brandFilterString'
+                value={this.state.brandFilterString}
+                type='text'
+                onChange={this.onChange}
+              />
+            </div>
             <button className='green-button' onClick={this.goToProductNewPage}>
               <i className='fas fa-plus' /> New Product
             </button>
+            <div style={{ }}>
+              <label> Complete </label>
+              <input
+                type='checkbox'
+                name={productStatusComplete.key}
+                value={productStatusComplete.value}
+                onChange={this.checkBoxOnChangeComplete}
+              />
+              <label> Incomplete </label>
+              <input
+                type='checkbox'
+                name={productStatusIncomplete.key}
+                value={productStatusComplete.value}
+                onChange={this.checkBoxOnChangeIncomplete}
+              />
+              <label> Pending Review </label>
+              <input
+                type='checkbox'
+                name={productStatusPendingReview.key}
+                value={productStatusPendingReview.value}
+                onChange={this.checkBoxOnChangePendingReview}
+              />
+            </div>
           </div>
         </header>
         { this.renderProducts() }

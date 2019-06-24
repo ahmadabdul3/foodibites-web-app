@@ -1,0 +1,48 @@
+.products-summary {
+  margin: 5px 5px;
+  padding: 30px;
+  display: inline-block;
+  background-color: $site-dark-blue;
+  border: 1px solid white;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+  width: 300px;
+  vertical-align: top;
+
+  &:hover {
+    background-color: darken($site-dark-blue, 5%);
+    cursor: default;
+    transition: background 0.15s ease;
+  }
+}
+
+%products-summary__text {
+  font-size: 16px;
+  color: white;
+  text-align: left;
+}
+
+.products-summary__name,
+.products-summary__brand,
+.products-summary__data-input-status {
+  @extend %products-summary__text;
+}
+
+.products-summary__name {
+  font-weight: bold;
+}
+
+.products-summary__brand {
+  margin-top: 5px;
+  font-weight: lighter;
+}
+
+.data-input-status {
+  width: 150px;
+  float: left;
+}
+
+.products-summary__data-input-status {
+  margin-top: 5px;
+  font-weight: lighter;
+}
