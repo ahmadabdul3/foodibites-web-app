@@ -1,15 +1,24 @@
 import React, { PureComponent } from 'react';
+import appRoutes from 'src/constants/routes';
+import { Redirect } from 'react-router';
 
 export default class ProductSummary extends PureComponent {
-  state = {};
+  state = {
+    redirect: '',
+  };
+
+  goToProductNewPage = () => {
+    this.setState({ redirect: appRoutes.productNew });
+  }
 
   render() {
+    const { redirect } = this.state;
     const {
       product
     } = this.props;
-
+    if(redirect) return <Redirect push to={redirect} />;
     return (
-      <div className='products-summary'>
+      <div className='products-summary' onClick={this.goToProductNewPage}>
         <div className='products-summary__name'>
           { product.name }
         </div>
