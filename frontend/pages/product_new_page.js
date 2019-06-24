@@ -4,7 +4,7 @@ import FormSelect from 'src/frontend/components/form_select';
 import http from 'src/frontend/services/http';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
-import { productStatus } from 'src/constants/product_status';
+import { productStatusComplete, productStatusIncomplete, productStatusPendingReview } from 'src/constants/product_status';
 
 function getProductModel({ values = {} }) {
   return {
@@ -38,7 +38,7 @@ export default class AddProductForm extends PureComponent {
     ingredient: '',
     ...getProductModel({}),
     ingredients: {},
-    dataInputStatus: productStatus.incomplete,
+    dataInputStatus: productStatusIncomplete.value,
     productComments: '',
     redirectTo: '',
   };
@@ -115,10 +115,9 @@ export default class AddProductForm extends PureComponent {
           <div className='dropdown-data-input-status'>
             <FormSelect
               options={[
-                { value: productStatus.incomplete, label: productStatus.incomplete },
-                { value: productStatus.inprogress, label: productStatus.inprogress },
-                { value: productStatus.complete, label: productStatus.complete },
-                { value: productStatus.pendingReview, label: productStatus.pendingReview },
+                { value: productStatusIncomplete.key, label: productStatusIncomplete.value },
+                { value: productStatusComplete.key, label: productStatusComplete.value },
+                { value: productStatusPendingReview.key, label: productStatusPendingReview.value },
               ]}
               onChange={this.onChange}
               state={{active: true}}
