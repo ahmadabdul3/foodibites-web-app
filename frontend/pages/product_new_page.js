@@ -4,7 +4,7 @@ import FormSelect from 'src/frontend/components/form_select';
 import http from 'src/frontend/services/http';
 import { Redirect } from 'react-router';
 import appRoutes from 'src/constants/routes';
-import { productStatus } from 'src/constants/product-status';
+import { productStatus } from 'src/constants/product_status';
 
 function getProductModel({ values = {} }) {
   return {
