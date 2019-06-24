@@ -115,9 +115,9 @@ export default class AddProductForm extends PureComponent {
           <div className='dropdown-data-input-status'>
             <FormSelect
               options={[
-                { value: productStatusIncomplete.key, label: productStatusIncomplete.value },
-                { value: productStatusComplete.key, label: productStatusComplete.value },
-                { value: productStatusPendingReview.key, label: productStatusPendingReview.value },
+                { value: productStatusIncomplete.valuel, label: productStatusIncomplete.value },
+                { value: productStatusComplete.value, label: productStatusComplete.value },
+                { value: productStatusPendingReview.value, label: productStatusPendingReview.value },
               ]}
               onChange={this.onChange}
               state={{active: true}}
