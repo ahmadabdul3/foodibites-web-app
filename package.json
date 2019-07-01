@@ -14,6 +14,9 @@
     "create-migration-db": "sequelize migration:create",
     "drop-db": "sequelize db:drop"
   },
+  "engines": {
+    "node" : "=8.11.2"
+  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "connected-react-router": "^6.3.1",
